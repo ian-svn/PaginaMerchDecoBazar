@@ -15,6 +15,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Ruta especial para inicializar base de datos (solo en producción/Vercel)
+app.get('/init-db', require('./init-db'));
+
 // Routes - En Vercel, cuando se accede a /api/auth/login, Vercel llama a esta función
 // y la ruta que llega aquí es /auth/login (sin el /api)
 // Por eso mapeamos directamente sin /api
@@ -28,7 +31,10 @@ app.use('/usuarios', require('../server/routes/usuarios'));
 
 // Ruta de prueba
 app.get('/test', (req, res) => {
-  res.json({ message: 'API funcionando correctamente en Vercel' });
+  res.json({ 
+    message: 'API funcionando correctamente en Vercel',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Manejo de errores

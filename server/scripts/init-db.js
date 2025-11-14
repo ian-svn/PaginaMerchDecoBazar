@@ -168,6 +168,7 @@ async function initDatabase() {
     }
 
     console.log('Base de datos inicializada correctamente');
+    return { success: true, message: 'Base de datos inicializada correctamente' };
   } catch (error) {
     console.error('Error al inicializar base de datos:', error);
     throw error;
@@ -178,13 +179,19 @@ async function initDatabase() {
   }
 }
 
-initDatabase()
-  .then(() => {
-    console.log('Proceso completado');
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error('Error fatal:', error);
-    process.exit(1);
-  });
+// Exportar la función para uso en API
+module.exports = initDatabase;
+
+// Ejecutar si se llama directamente
+if (require.main === module) {
+  initDatabase()
+    .then(() => {
+      console.log('✅ Base de datos inicializada exitosamente');
+      process.exit(0);
+    })
+    .catch((error) => {
+      console.error('❌ Error al inicializar base de datos:', error);
+      process.exit(1);
+    });
+}
 

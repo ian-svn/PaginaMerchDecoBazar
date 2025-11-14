@@ -53,7 +53,20 @@ git push -u origin main
 
 ### 4. Inicializar Base de Datos
 
-Después del deploy, ejecuta localmente para inicializar la base de datos:
+**IMPORTANTE:** Después del deploy, debes inicializar la base de datos.
+
+#### Opción A: Usando el Endpoint (Recomendado)
+
+1. **Configura el secreto de inicialización** (opcional pero recomendado):
+   - En Vercel: Settings → Environment Variables
+   - Añade: `INIT_DB_SECRET` = `tu_secreto_super_seguro_2024`
+   - Guarda y haz un nuevo deploy
+
+2. **Inicializa la base de datos:**
+   - Visita: `https://tu-proyecto.vercel.app/api/init-db?secret=tu_secreto_super_seguro_2024`
+   - O sin secreto (menos seguro): `https://tu-proyecto.vercel.app/api/init-db?secret=init_db_secret_2024_cambiar`
+
+#### Opción B: Desde tu máquina local
 
 ```bash
 # 1. Actualiza tu .env con las credenciales de tu base de datos MySQL
@@ -65,6 +78,8 @@ Esto creará:
 - Las tablas necesarias
 - Usuario admin: `admin` / `admin123`
 - Productos de ejemplo con imágenes
+
+**Ver `INICIALIZAR-DB-VERCEL.md` para más detalles.**
 
 ### 5. Verificar
 
