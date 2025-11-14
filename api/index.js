@@ -15,8 +15,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes - En Vercel, las rutas ya vienen con /api, así que no lo añadimos
-// Pero las rutas del servidor esperan /api/auth, así que las mapeamos correctamente
+// Routes - En Vercel, cuando se accede a /api/auth/login, Vercel llama a esta función
+// y la ruta que llega aquí es /auth/login (sin el /api)
+// Por eso mapeamos directamente sin /api
 app.use('/auth', require('../server/routes/auth'));
 app.use('/productos', require('../server/routes/productos'));
 app.use('/clientes', require('../server/routes/clientes'));
@@ -45,5 +46,5 @@ if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET = 'merchdecobazar_secret_key_2024_cambiar_en_produccion';
 }
 
+// Exportar como handler para Vercel
 module.exports = app;
-

@@ -34,6 +34,8 @@ git push -u origin main
    - Build Command: `npm run vercel-build`
    - Output Directory: `client/build`
    - Install Command: `npm install`
+   
+   **NOTA:** Vercel detectará automáticamente la función serverless en `api/index.js`. No necesitas configurar nada adicional en las funciones.
 
 5. **Variables de Entorno** (Settings → Environment Variables):
    ```
