@@ -155,9 +155,13 @@ async function initDatabase() {
       ];
 
       for (const producto of productosEjemplo) {
+        // Usar ruta relativa que funcione tanto en desarrollo como en producción
+        const imagenUrl = process.env.NODE_ENV === 'production' 
+          ? `/assets/${producto.imagen}` 
+          : `/assets/${producto.imagen}`;
         await connection.execute(
           'INSERT INTO productos (nombre, descripcion, stock, precio, imagen_url) VALUES (?, ?, ?, ?, ?)',
-          [producto.nombre, producto.descripcion, producto.stock, producto.precio, `/assets/${producto.imagen}`]
+          [producto.nombre, producto.descripcion, producto.stock, producto.precio, imagenUrl]
         );
       }
       console.log('Productos de ejemplo insertados');

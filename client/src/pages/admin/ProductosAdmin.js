@@ -125,7 +125,14 @@ const ProductosAdmin = () => {
             {productos.map(producto => (
               <tr key={producto.id_producto}>
                 <td>
-                  <img src={producto.imagen_url} alt={producto.nombre} className="product-thumb" />
+                  <img 
+                    src={producto.imagen_url || '/assets/Logo.png'} 
+                    alt={producto.nombre} 
+                    className="product-thumb"
+                    onError={(e) => {
+                      e.target.src = '/assets/Logo.png';
+                    }}
+                  />
                 </td>
                 <td>{producto.nombre}</td>
                 <td>{producto.descripcion}</td>

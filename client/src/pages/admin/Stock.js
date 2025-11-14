@@ -88,7 +88,14 @@ const Stock = () => {
               <tr key={producto.id_producto}>
                 <td>
                   <div className="product-info">
-                    <img src={producto.imagen_url} alt={producto.nombre} className="product-thumb" />
+                    <img 
+                      src={producto.imagen_url || '/assets/Logo.png'} 
+                      alt={producto.nombre} 
+                      className="product-thumb"
+                      onError={(e) => {
+                        e.target.src = '/assets/Logo.png';
+                      }}
+                    />
                     <div>
                       <strong>{producto.nombre}</strong>
                       <p className="product-desc">{producto.descripcion}</p>

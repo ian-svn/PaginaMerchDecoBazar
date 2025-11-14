@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 // Configurar la URL base según el entorno
+// En producción, las rutas /api van al mismo dominio (Vercel las maneja)
 const API_URL = process.env.NODE_ENV === 'production' 
-  ? window.location.origin 
+  ? '' // Usar rutas relativas en producción
   : 'http://localhost:5000';
 
 // Crear instancia de axios con configuración base

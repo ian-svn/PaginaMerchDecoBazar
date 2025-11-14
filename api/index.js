@@ -15,10 +15,8 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir archivos estáticos (imágenes)
-app.use('/assets', express.static(path.join(__dirname, '../assets')));
-
-// Routes
+// Routes - En Vercel, las rutas ya vienen con /api, así que no lo añadimos
+// Pero las rutas del servidor esperan /api/auth, así que las mapeamos correctamente
 app.use('/auth', require('../server/routes/auth'));
 app.use('/productos', require('../server/routes/productos'));
 app.use('/clientes', require('../server/routes/clientes'));
@@ -29,13 +27,16 @@ app.use('/usuarios', require('../server/routes/usuarios'));
 
 // Ruta de prueba
 app.get('/test', (req, res) => {
-  res.json({ message: 'API funcionando correctamente' });
+  res.json({ message: 'API funcionando correctamente en Vercel' });
 });
 
 // Manejo de errores
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Error del servidor' });
+  console.error('Error en API:', err.stack);
+  res.status(500).json({ 
+    error: 'Error del servidor',
+    details: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
 });
 
 // Verificar variables de entorno críticas

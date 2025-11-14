@@ -35,7 +35,7 @@ const Productos = () => {
           <div key={producto.id_producto} className="producto-card">
             <div className="producto-image">
               <img 
-                src={producto.imagen_url} 
+                src={producto.imagen_url || '/assets/Logo.png'} 
                 alt={producto.nombre}
                 onError={(e) => {
                   e.target.src = '/assets/Logo.png';

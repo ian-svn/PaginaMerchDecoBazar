@@ -8,9 +8,10 @@
     "server": "nodemon server/index.js",
     "start": "node server/index.js",
     "client": "cd client && npm start",
-    "build": "cd client && npm run build",
+    "build": "cd client && npm install && npm run build",
     "install-all": "npm install && cd client && npm install",
-    "postinstall": "cd client && npm install"
+    "postinstall": "cd client && npm install",
+    "vercel-build": "cd client && npm install && npm run build"
   },
   "keywords": ["e-commerce", "bazar", "merch"],
   "author": "",

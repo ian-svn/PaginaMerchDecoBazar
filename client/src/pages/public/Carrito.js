@@ -62,7 +62,13 @@ const Carrito = () => {
         <div className="carrito-items">
           {cart.map(item => (
             <div key={item.id_producto} className="carrito-item">
-              <img src={item.imagen_url} alt={item.nombre} />
+              <img 
+                src={item.imagen_url || '/assets/Logo.png'} 
+                alt={item.nombre}
+                onError={(e) => {
+                  e.target.src = '/assets/Logo.png';
+                }}
+              />
               <div className="item-info">
                 <h3>{item.nombre}</h3>
                 <p>${item.precio.toLocaleString()} c/u</p>
