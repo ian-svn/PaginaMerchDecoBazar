@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 // Ruta especial para inicializar base de datos (solo en producción/Vercel)
 app.get('/init-db', require('./init-db'));
 
-// Routes - En Vercel, cuando se accede a /api/auth/login, Vercel llama a esta función
-// y la ruta que llega aquí es /auth/login (sin el /api)
+// Routes - En Vercel, cuando se accede a /api/productos, Vercel llama a esta función
+// y la ruta que llega aquí es /productos (sin el /api)
 // Por eso mapeamos directamente sin /api
 app.use('/auth', require('../server/routes/auth'));
 app.use('/productos', require('../server/routes/productos'));
@@ -33,7 +33,10 @@ app.use('/usuarios', require('../server/routes/usuarios'));
 app.get('/test', (req, res) => {
   res.json({ 
     message: 'API funcionando correctamente en Vercel',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    path: req.path,
+    url: req.url,
+    originalUrl: req.originalUrl
   });
 });
 
@@ -53,4 +56,5 @@ if (!process.env.JWT_SECRET) {
 }
 
 // Exportar como handler para Vercel
+// Vercel espera que exportemos la app directamente
 module.exports = app;
